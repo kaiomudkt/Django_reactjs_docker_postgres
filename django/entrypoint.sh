@@ -22,5 +22,8 @@ fi
 # Aplicar migrações
 python manage.py migrate
 
+# Ajustar permissões para o usuário do host
+chown -R $(id -u):$(id -g) .
+
 # Iniciar o servidor Django
 exec "$@"

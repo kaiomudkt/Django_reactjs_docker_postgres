@@ -1,9 +1,19 @@
 # Django_reactjs_docker_postgres
 
-Docker-compose.yml orquestrando container Docker
+Visão geral do projeto
+- Docker-compose.yml orquestrando container Docker
+- Docker para ambiente postgres, react.js e django
+- configurando execução com arquivo entrypoint.sh
+- arquivo .env para variaveis de ambiente
 
-Docker para ambiente postgres, react.js e django
+### Django
+- api REST
 
-configurando execução com arquivo entrypoint.sh
+### iniciando projeto
 
-arquivo .env para variaveis de ambiente
+$ sudo docker-compose down -v
+
+$ sudo docker-compose up --build
+
+$ sudo chown -R $(whoami):$(whoami) .
+
