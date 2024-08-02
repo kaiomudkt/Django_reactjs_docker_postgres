@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  service_db:
+    image: postgres
+    # restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  service_backend:
+    build: ./django
+    # command: /entrypoint.sh
+    command: python manage.py runserver 0.0.0.0:3001
+    volumes:
+      - ./django:/django
+    ports:
+      - "3001:3001"
+    depends_on:
+      - service_db
+    environment:
+      DATABASE: postgres
+      SQL_HOST: ${POSTGRES_HOST}
+      SQL_PORT: ${POSTGRES_PORT}
+      SQL_DATABASE: ${POSTGRES_DB}
+      SQL_USER: ${POSTGRES_USER}
+      SQL_PASSWORD: ${POSTGRES_PASSWORD}
+      DJANGO_SETTINGS_MODULE: ${NAME_PROJECT}.settings
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NAME_PROJECT: ${NAME_PROJECT}
+    env_file:
+      - .env     
+  service_frontend:
+    build: ./reactjs
+    volumes:
+      - ./reactjs:/reactjs
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service_backend
+
+volumes:
+  postgres_data:
