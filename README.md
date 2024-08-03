@@ -44,7 +44,6 @@ executando migrations
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py migrate"
 ```
 
-
 ```bash
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py showmigrations"
 ```
@@ -55,8 +54,6 @@ sudo docker-compose exec service_backend /bin/bash
 python manage.py makemigrations clarke
 python manage.py migrate clarke
 ```
-
-
 
 criar um super usuário no django
 ```bash 
