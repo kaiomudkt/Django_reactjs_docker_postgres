@@ -14,6 +14,8 @@ Visão geral do projeto
 
 ### iniciando projeto
 
+crie o arquivo '.env' na raiz do projeto com base no '.env.example'
+
 ```bash
 $ sudo docker-compose down -v
 ```
