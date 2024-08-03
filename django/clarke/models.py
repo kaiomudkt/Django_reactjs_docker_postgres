@@ -1,7 +1,23 @@
 import uuid
 from django.db import models
+from datetime import date
+from django.db.models import QuerySet 
 
 class Supplier(models.Model):
+    """
+    Modelo que representa um fornecedor de energia.
+
+    Atributos:
+        id (UUIDField): Identificador único do fornecedor.
+        name (CharField): Nome do fornecedor.
+        logo (URLField): URL do logotipo do fornecedor.
+        state (CharField): Sigla do estado onde o fornecedor opera (por exemplo, 'SP', 'RJ').
+        cost_per_kwh (DecimalField): Custo por kWh cobrado pelo fornecedor.
+        min_kwh_limit (PositiveIntegerField): Consumo mínimo em kWh exigido pelo fornecedor.
+        total_customers (PositiveIntegerField): Número total de clientes atendidos pelo fornecedor.
+        average_rating (DecimalField): Avaliação média do fornecedor (de 0 a 5).
+        status (CharField): Status do fornecedor (ativo, inativo, suspenso).
+    """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     logo = models.URLField()
@@ -23,12 +39,25 @@ class Supplier(models.Model):
     def __str__(self) -> str:
         """
         Retorna o nome do fornecedor.
+
+        Returns:
+            str: Nome do fornecedor.
         """
         return self.name
 
+
 class Client(models.Model):
+    """
+    Modelo que representa um cliente que consome energia.
+
+    Atributos:
+        id (UUIDField): Identificador único do cliente.
+        company_name (CharField): Nome da empresa cliente.
+        monthly_consumption (PositiveIntegerField): Consumo mensal de energia em kWh.
+        status (CharField): Status do cliente (ativo, inativo, prospectivo).
+        suppliers (ManyToManyField): Relacionamento muitos-para-muitos com os fornecedores através do modelo Contract.
+    """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)  # Associe um cliente a um usuário
     company_name = models.CharField(max_length=255)
     monthly_consumption = models.PositiveIntegerField()  # Consumo mensal em kWh
     status = models.CharField(
@@ -40,19 +69,64 @@ class Client(models.Model):
         ],
         default='active'
     )
+    suppliers = models.ManyToManyField('Supplier', through='Contract', related_name='clients')  # Relacionamento N:M
 
     def __str__(self) -> str:
         """
         Retorna o nome da empresa do cliente.
+
+        Returns:
+            str: Nome da empresa do cliente.
         """
         return self.company_name
 
-    def get_eligible_suppliers(self) -> models.QuerySet:
+    def get_eligible_suppliers(self) -> QuerySet:
         """
         Retorna os fornecedores que atendem às necessidades do cliente com base no consumo mensal.
 
         Returns:
-            models.QuerySet: Um queryset de fornecedores que têm um limite mínimo de kWh menor ou igual ao consumo mensal do cliente.
+            QuerySet: Um queryset de fornecedores que têm um limite mínimo de kWh menor ou igual ao consumo mensal do cliente.
         """
         return Supplier.objects.filter(min_kwh_limit__lte=self.monthly_consumption, status='active')
 
+
+class Contract(models.Model):
+    """
+    Modelo que representa um contrato entre um cliente e um fornecedor.
+
+    Atributos:
+        id (UUIDField): Identificador único do contrato.
+        client (ForeignKey): Referência ao cliente que assinou o contrato.
+        supplier (ForeignKey): Referência ao fornecedor que assinou o contrato.
+        contract_date (DateField): Data de assinatura do contrato.
+        expiration_date (DateField): Data de expiração do contrato.
+        contract_value (DecimalField): Valor total do contrato.
+        terms_and_conditions (TextField): Termos e condições do contrato.
+        is_active (BooleanField): Indica se o contrato está ativo ou não.
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    contract_date = models.DateField()  # Data do contrato
+    expiration_date = models.DateField()  # Data de expiração do contrato
+    contract_value = models.DecimalField(max_digits=15, decimal_places=2)  # Valor total do contrato
+    terms_and_conditions = models.TextField()  # Termos e condições do contrato
+    is_active = models.BooleanField(default=True)  # Status do contrato
+
+    def __str__(self) -> str:
+        """
+        Retorna uma representação do relacionamento entre Client e Supplier.
+
+        Returns:
+            str: Representação do contrato entre o cliente e o fornecedor.
+        """
+        return f"Contract between {self.client.company_name} and {self.supplier.name}"
+
+    def is_expired(self) -> bool:
+        """
+        Verifica se o contrato está expirado.
+
+        Returns:
+            bool: True se o contrato estiver expirado, False caso contrário.
+        """
+        return date.today() > self.expiration_date
