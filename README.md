@@ -29,9 +29,14 @@ entra no container do django
 $ sudo docker-compose exec service_backend /bin/bash
 ```
 
+cria as migrations
+```bash
+$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py makemigrations"
+```
+
 executando migrations
 ```bash
-$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py makemigrations && python manage.py migrate"
+$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py migrate"
 ```
 
 criar um super usuário no django
