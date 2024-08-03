@@ -5,6 +5,8 @@ Visão geral do projeto
 - Docker para ambiente postgres, react.js e django
 - configurando execução com arquivo entrypoint.sh
 - arquivo .env para variaveis de ambiente
+- script wait-for-postgres.sh faz com que o django espere o postgres responder antes de tentar conectar
+- script create_superuser_django.py automátiza a criação do superuser do Django
 
 ### Django
 - api REST
@@ -42,6 +44,13 @@ $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py migrat
 
 ```bash
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py showmigrations"
+```
+
+se ainda nao criou as migrations do modulo clarke
+```bash
+sudo docker-compose exec service_backend /bin/bash 
+python manage.py makemigrations clarke
+python manage.py migrate clarke
 ```
 
 

@@ -17,7 +17,8 @@ python manage.py migrate
 
 # Criar superuser do django, se não existir
 # python manage.py create_superuser_django
-python manage.py createsuperuser --noinput --username admin --email admin@example.com
+# TODO: arrumar criacao automatica de super user
+# python manage.py createsuperuser --noinput --username admin --email admin@example.com
 
 
 # executa o "command" do service do docker-compose.yml que inicia o servidor Django
