@@ -11,9 +11,15 @@ Visão geral do projeto
 
 ### iniciando projeto
 
+```bash
 $ sudo docker-compose down -v
+```
 
+```bash
 $ sudo docker-compose up --build
+```
 
+Arruma erro de permissao nos arquivos
+```bash
 $ sudo chown -R $(whoami):$(whoami) .
-
+```
