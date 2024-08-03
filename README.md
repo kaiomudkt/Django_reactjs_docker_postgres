@@ -23,3 +23,10 @@ Arruma erro de permissao nos arquivos
 ```bash
 $ sudo chown -R $(whoami):$(whoami) .
 ```
+
+entra no container do django
+```bash
+$ sudo docker-compose exec service_backend /bin/bash
+```
+
+
