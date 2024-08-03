@@ -29,4 +29,6 @@ entra no container do django
 $ sudo docker-compose exec service_backend /bin/bash
 ```
 
-
+```bash
+$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py makemigrations && python manage.py migrate"
+```
