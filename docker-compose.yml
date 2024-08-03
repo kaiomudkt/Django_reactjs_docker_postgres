@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   service_db:
     image: postgres
     # restart: always
@@ -15,12 +16,13 @@ services:
     env_file:
       - .env
     networks:
-      - networks_clake
+      network-clarke:
+        ipv4_address: 172.16.20.3
 
   service_backend:
     build: ./django
-    # command: /entrypoint.sh
     command: python manage.py runserver 0.0.0.0:${DJANGO_PORT}
+    entrypoint: /entrypoint.sh
     volumes:
       - ./django:/django
     ports:
@@ -33,7 +35,8 @@ services:
     env_file:
       - .env
     networks:
-      - networks_clake
+      network-clarke:
+        ipv4_address: 172.16.20.4
 
   service_frontend:
     build: ./reactjs
@@ -46,11 +49,16 @@ services:
     depends_on:
       - service_backend
     networks:
-      - networks_clake
+      network-clarke:
+        ipv4_address: 172.16.20.5
 
 volumes:
   postgres_data:
   
 networks:
-  networks_clake:
+  network-clarke:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.20.0/24

@@ -1,18 +1,11 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
-then
-    echo "Waiting for postgres..."
-    echo "POSTGRES_HOST: $POSTGRES_HOST"
-    echo "POSTGRES_PORT: $POSTGRES_PORT"
-
-    while ! nc -w 5 -z $POSTGRES_HOST $POSTGRES_PORT; do
-      echo "Waiting for the database to be ready..."
-      sleep 1
-    done
-
-    echo "PostgreSQL started"
-fi
+echo "Waiting for postgres..."
+# configura permissões de execução
+chmod +x ./wait-for-postgres.sh
+# chame o script wait-for-postgres.sh
+./wait-for-postgres.sh
+echo "PostgreSQL started"
 
 # Criar o projeto Django se ele ainda não existir
 if [ ! -f "./manage.py" ]; then
@@ -22,5 +15,10 @@ fi
 # Aplicar migrações
 python manage.py migrate
 
-# Iniciar o servidor Django
+# Criar superuser do django, se não existir
+# python manage.py create_superuser_django
+python manage.py createsuperuser --noinput --username admin --email admin@example.com
+
+
+# executa o "command" do service do docker-compose.yml que inicia o servidor Django
 exec "$@"

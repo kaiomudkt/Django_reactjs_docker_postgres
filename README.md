@@ -39,6 +39,13 @@ executando migrations
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py migrate"
 ```
 
+
+```bash
+$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py showmigrations"
+```
+
+
+
 criar um super usuário no django
 ```bash 
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py createsuperuser"
