@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from datetime import date
-from django.db.models import QuerySet 
+from django.db.models import QuerySet
 
 class Supplier(models.Model):
     """
@@ -12,6 +12,7 @@ class Supplier(models.Model):
         name (CharField): Nome do fornecedor.
         logo (URLField): URL do logotipo do fornecedor.
         state (CharField): Sigla do estado onde o fornecedor opera (por exemplo, 'SP', 'RJ').
+        cnpj (CharField): CNPJ do fornecedor.
         cost_per_kwh (DecimalField): Custo por kWh cobrado pelo fornecedor.
         min_kwh_limit (PositiveIntegerField): Consumo mínimo em kWh exigido pelo fornecedor.
         total_customers (PositiveIntegerField): Número total de clientes atendidos pelo fornecedor.
@@ -22,10 +23,11 @@ class Supplier(models.Model):
     name = models.CharField(max_length=255)
     logo = models.URLField()
     state = models.CharField(max_length=2)  # E.g., 'SP', 'RJ'
+    cnpj = models.CharField(max_length=18, unique=True)  # Cadastro Nacional de Pessoa Jurídica
     cost_per_kwh = models.DecimalField(max_digits=10, decimal_places=4)
     min_kwh_limit = models.PositiveIntegerField()
     total_customers = models.PositiveIntegerField()
-    average_rating = models.DecimalField(max_digits=3, decimal_places=2)
+    average_rating = models.DecimalField(max_digits=5, decimal_places=2)
     status = models.CharField(
         max_length=20,
         choices=[
@@ -53,12 +55,19 @@ class Client(models.Model):
     Atributos:
         id (UUIDField): Identificador único do cliente.
         company_name (CharField): Nome da empresa cliente.
+        cpf_cnpj (CharField): CPF ou CNPJ do cliente.
+        address (CharField): Endereço do cliente.
+        contact_name (CharField): Nome da pessoa de contato no cliente.
+        contact_email (EmailField): E-mail da pessoa de contato no cliente.
         monthly_consumption (PositiveIntegerField): Consumo mensal de energia em kWh.
         status (CharField): Status do cliente (ativo, inativo, prospectivo).
-        suppliers (ManyToManyField): Relacionamento muitos-para-muitos com os fornecedores através do modelo Contract.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     company_name = models.CharField(max_length=255)
+    cpf_cnpj = models.CharField(max_length=18, unique=True)  # CPF ou CNPJ do cliente
+    address = models.CharField(max_length=255)  # Endereço do cliente
+    contact_name = models.CharField(max_length=255)  # Nome da pessoa de contato
+    contact_email = models.EmailField()  # E-mail da pessoa de contato
     monthly_consumption = models.PositiveIntegerField()  # Consumo mensal em kWh
     status = models.CharField(
         max_length=20,
@@ -69,7 +78,6 @@ class Client(models.Model):
         ],
         default='active'
     )
-    suppliers = models.ManyToManyField('Supplier', through='Contract', related_name='clients')  # Relacionamento N:M
 
     def __str__(self) -> str:
         """
@@ -103,6 +111,8 @@ class Contract(models.Model):
         contract_value (DecimalField): Valor total do contrato.
         terms_and_conditions (TextField): Termos e condições do contrato.
         is_active (BooleanField): Indica se o contrato está ativo ou não.
+        billing_frequency (CharField): Frequência de faturamento do contrato (mensal, trimestral, anual).
+        payment_terms (CharField): Condições de pagamento do contrato (ex: 30 dias após faturamento).
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -112,6 +122,16 @@ class Contract(models.Model):
     contract_value = models.DecimalField(max_digits=15, decimal_places=2)  # Valor total do contrato
     terms_and_conditions = models.TextField()  # Termos e condições do contrato
     is_active = models.BooleanField(default=True)  # Status do contrato
+    billing_frequency = models.CharField(
+        max_length=20,
+        choices=[
+            ('monthly', 'Monthly'),
+            ('quarterly', 'Quarterly'),
+            ('annually', 'Annually')
+        ],
+        default='monthly'
+    )
+    payment_terms = models.CharField(max_length=50)  # Condições de pagamento
 
     def __str__(self) -> str:
         """

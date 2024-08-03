@@ -1,4 +1,5 @@
 #!/bin/sh
+# Especifica que o script deve ser executado usando o interpretador de comandos Bash.
 
 echo "Waiting for postgres..."
 # configura permissões de execução
@@ -14,8 +15,8 @@ fi
 
 echo "TYPE_ENVIRONMENT: $TYPE_ENVIRONMENT"
 if [ "$TYPE_ENVIRONMENT" = "development" ]; then
+  echo "Gerando migrations do clarke"
   python manage.py makemigrations clarke
-  # python manage.py migrate clarke
 fi
 
 # Aplicar migrações
@@ -26,6 +27,11 @@ python manage.py migrate
 # TODO: arrumar criacao automatica de super user
 # python manage.py createsuperuser --noinput --username admin --email admin@example.com
 
+# Insere Seed
+if [ "$TYPE_ENVIRONMENT" = "development" ]; then
+  echo "Gerando Seeds"
+  python manage.py seed_data
+fi
 
 
 # executa o "command" do service do docker-compose.yml que inicia o servidor Django
