@@ -59,3 +59,9 @@ criar um super usuário no django
 ```bash 
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py createsuperuser"
 ```
+
+Inserindo dados fakes no banco de dados
+```bash 
+$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py seed_data"
+```
+
