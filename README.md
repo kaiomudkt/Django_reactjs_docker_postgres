@@ -7,6 +7,7 @@ Visão geral do projeto
 - arquivo .env para variaveis de ambiente
 - script wait-for-postgres.sh faz com que o django espere o postgres responder antes de tentar conectar
 - script create_superuser_django.py automátiza a criação do superuser do Django
+- nginx
 
 ### Django
 - api REST
