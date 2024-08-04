@@ -1,9 +1,15 @@
-from django.http import JsonResponse
+from .models import Client, Contract, Supplier
+from .serializers import ClientSerializer, ContractSerializer, SupplierSerializer
+from rest_framework import viewsets
 
-def teste(request):
-    if request.method == 'GET':
-        teste1 = {
-            'id': 1,
-            'mensagem': 'Olá Mundo!'
-        }
-        return JsonResponse(teste1)
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+class ContractViewSet(viewsets.ModelViewSet):
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+
+class SupplierViewSet(viewsets.ModelViewSet):
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
