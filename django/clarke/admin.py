@@ -33,3 +33,8 @@ class ContractAdmin(admin.ModelAdmin):
     list_filter = ('contract_date', 'expiration_date', 'is_active')
     ordering = ('contract_date',)
     readonly_fields = ('id',)
+
+# admin.site.register(Client)
+# admin.site.register(Supplier)
+# admin.site.register(Contract)
+

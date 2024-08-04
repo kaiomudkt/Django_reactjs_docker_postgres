@@ -23,3 +23,12 @@ class CustomUser(AbstractUser):
         related_name='customuser_set',
         blank=True
     )
+    
+    def is_client(self):
+        return self.groups.filter(name='Client').exists()
+
+    def is_supplier(self):
+        return self.groups.filter(name='Supplier').exists()
+
+    def is_admin(self):
+        return self.is_superuser

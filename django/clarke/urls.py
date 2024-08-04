@@ -15,7 +15,8 @@ router.register('supplier', SupplierViewSet, basename='supplier')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),  # Inclui as rotas do router
-    path('', include('user.urls')),  # Inclui as rotas do app `user`
+    path('', include('user.urls')),  # Inclui as rotas do app 'user'
+    # path('', include('user.views')),
     path('client/<uuid:pk>/contract/', ListContractClient.as_view(), name='contracts_by_client'),
     path('supplier/<uuid:pk>/contract/', ListContractSupplier.as_view(), name='contracts_by_supplier'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
