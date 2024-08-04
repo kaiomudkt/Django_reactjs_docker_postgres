@@ -9,12 +9,20 @@ if [ ! -d "$REACT_APP_DIR" ]; then
 fi
 
 # Verifica se o diretório do projeto React.js existe
-if [ ! -d /reactjs/node_modules ]; then
+if [ ! -d "$REACT_APP_DIR/node_modules" ]; then
   echo "Criando o projeto React.js..."
   npx create-react-app "$REACT_APP_DIR" || { echo "Falha ao criar o projeto React.js"; exit 1; }
 else
   echo "O projeto React.js já existe. Iniciando o servidor..."
 fi
+
+# Navega para o diretório do projeto
+cd "$REACT_APP_DIR" || exit 1
+
+echo "Copiando package.json e package-lock.json..."
+cp /reactjs/package*.json ./
+echo "Instalando as dependências do projeto React.js..."
+npm install || { echo "Falha ao instalar as dependências"; exit 1; }
 
 # Inicia a aplicação
 # executa o "command" do service do docker-compose.yml que inicia o servidor React.js
