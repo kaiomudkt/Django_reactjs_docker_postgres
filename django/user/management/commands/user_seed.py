@@ -15,24 +15,24 @@ class Command(BaseCommand):
         client_user = User(
             username='teste_client',
             email='teste_client@example.com',
-            password='client_password',
+            password='password',
             first_name='Teste',
             last_name='Client',
             cpf='12345678901',
         )
-        client_user.set_password('client_password')
+        client_user.set_password('password')
         client_user.save()
         client_user.groups.add(client_group)
         # Criar o usuário fixo para o grupo "Supplier"
         supplier_user = User(
             username='teste_supplier',
             email='teste_supplier@example.com',
-            password='supplier_password',
+            password='password',
             first_name='Teste',
             last_name='Supplier',
             cpf='12345678902',
         )
-        supplier_user.set_password('supplier_password')
+        supplier_user.set_password('password')
         supplier_user.save()
         supplier_user.groups.add(supplier_group)
         # Criar usuários aleatórios
