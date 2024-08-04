@@ -16,6 +16,9 @@ else
   echo "O projeto React.js já existe. Iniciando o servidor..."
 fi
 
+# Define a variável de ambiente PORT
+export PORT=${REACTJS_PORT}
+
 # Navega para o diretório do projeto
 cd "$REACT_APP_DIR" || exit 1
 
