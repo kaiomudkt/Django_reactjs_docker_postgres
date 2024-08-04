@@ -166,3 +166,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+# define o 'CustomUser' para ser usado em autenticações em vez do modelo padrão 'User'
+AUTH_USER_MODEL = 'user.CustomUser'

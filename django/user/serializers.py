@@ -58,7 +58,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password', 'password2', 'bio', 'cover_photo')
+        fields = ('username', 'email', 'password', 'password2', 'cpf', 'profile_picture')
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'profile_picture': {'required': False, 'allow_null': True}  # Torne o campo opcional
+        }
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -71,13 +75,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = CustomUser.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
-            bio=validated_data['bio'],
-            cover_photo=validated_data['cover_photo']
+            cpf=validated_data['cpf'],
+            profile_picture=validated_data.get('profile_picture'),
         )
-
         user.set_password(validated_data['password'])
         user.save()
-
         return user
 
 # class ProfileSerializer(serializers.ModelSerializer):
