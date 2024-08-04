@@ -73,3 +73,19 @@ class ContractSerializer(serializers.ModelSerializer):
             'terms_and_conditions', 'is_active', 
             'billing_frequency', 'payment_terms'
         ]
+
+class ListContractClientsSerializer(serializers.ModelSerializer):
+    supplier_name = serializers.ReadOnlyField(source='supplier.name')
+    class Meta:
+        model = Contract
+        fields = ['supplier_name', 'id', 'is_active', 'expiration_date']
+    def get_id(self, obj):
+        return obj.get_id_display()
+    
+class ListContractSupplierSerializer(serializers.ModelSerializer):
+    client_name = serializers.ReadOnlyField(source='client.company_name')
+    class Meta:
+        model = Contract
+        fields = ['client_name', 'id', 'is_active', 'expiration_date']
+    def get_id(self, obj):
+        return obj.get_id_display()
