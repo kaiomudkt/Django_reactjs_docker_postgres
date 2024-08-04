@@ -8,6 +8,7 @@ if [ ! -d "$REACT_APP_DIR" ]; then
   mkdir -p "$REACT_APP_DIR"
 fi
 
+
 # Verifica se o diretório do projeto React.js existe
 if [ ! -d "$REACT_APP_DIR/node_modules" ]; then
   echo "Criando o projeto React.js..."
@@ -16,14 +17,16 @@ else
   echo "O projeto React.js já existe. Iniciando o servidor..."
 fi
 
+echo "Copiando package.json e package-lock.json..."
+cp /reactjs/app/package*.json ./
+
 # Define a variável de ambiente PORT, porta do react.js
 export PORT=${REACTJS_PORT}
 
 # Navega para o diretório do projeto
 cd "$REACT_APP_DIR" || exit 1
 
-echo "Copiando package.json e package-lock.json..."
-cp /reactjs/package*.json ./
+
 echo "Instalando as dependências do projeto React.js..."
 npm install || { echo "Falha ao instalar as dependências"; exit 1; }
 
