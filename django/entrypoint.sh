@@ -6,7 +6,7 @@ echo "Waiting for postgres..."
 chmod +x ./wait-for-postgres.sh
 # chame o script wait-for-postgres.sh
 ./wait-for-postgres.sh
-echo "PostgreSQL started"
+echo "PostgreSQL started successfully!"
 
 # Criar o projeto Django se ele ainda não existir
 if [ ! -f "./manage.py" ]; then
@@ -14,9 +14,10 @@ if [ ! -f "./manage.py" ]; then
 fi
 
 echo "TYPE_ENVIRONMENT: $TYPE_ENVIRONMENT"
+# Verifica se o tipo de ambiente é desenvolvimento
 if [ "$TYPE_ENVIRONMENT" = "development" ]; then
-  echo "Gerando migrations do clarke"
-  python manage.py makemigrations clarke
+  echo "Gerando migrations para todos os apps"
+  python manage.py makemigrations
 fi
 
 # Aplicar migrações

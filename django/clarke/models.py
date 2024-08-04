@@ -21,7 +21,8 @@ class Supplier(models.Model):
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
-    logo = models.URLField()
+    # logo = models.URLField()
+    logo = models.ImageField(upload_to='logo/', null=True, blank=True)
     state = models.CharField(max_length=2)  # E.g., 'SP', 'RJ'
     cnpj = models.CharField(max_length=18, unique=True)  # Cadastro Nacional de Pessoa Jurídica
     cost_per_kwh = models.DecimalField(max_digits=10, decimal_places=4)

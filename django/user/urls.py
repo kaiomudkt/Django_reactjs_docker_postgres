@@ -1,10 +1,19 @@
 from django.urls import path
-from .views import login_view, register_view
+from .views import *
 
 urlpatterns = [
+    #Authentication
+    path('auth/login', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('user/register/', RegisterView.as_view(), name='auth_register'),
+
+    #Profile
+    # path('profile/', getProfile, name='profile'),
+    # path('profile/update/', updateProfile, name='update-profile'),
+
     # Authentication
-    path('auth/login/', login_view, name='login'),
-    path('auth/register/', register_view, name='user_register'),
+    # path('auth/login/', login_view, name='login'),
+    # path('auth/register/', register_view, name='user_register'),
     # path('auth/logout/', LogoutView, name='logout'),
     # path('auth/refresh-token/', RefreshTokenView, name='refresh_token'),
 
