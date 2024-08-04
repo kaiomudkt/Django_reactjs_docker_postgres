@@ -4,3 +4,52 @@
 django/db.sqlite3
 ./django/db.sqlite3
 **/.env.prod
+
+# Dependências do npm
+**/node_modules/**
+
+# Arquivos de build
+**/reactjs/build/**
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.swo
+
+# Ambiente de desenvolvimento
+.env
+
+# Arquivos gerados pelo sistema
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de cache
+/.pnp
+.pnp.js
+/.pnp/sha
+.pnp/registry
+.pnp/cache
+
+# Pastas específicas de editores
+.vscode/
+.idea/
+
+# Teste de snapshots do Jest
+/coverage/
+*.snap
+
+# Arquivos de backup
+*.bak
+*.tmp
+
+# Arquivos do Docker
+docker-compose.override.yml
+docker-compose.dev.yml
