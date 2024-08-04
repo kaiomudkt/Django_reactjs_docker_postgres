@@ -9,6 +9,8 @@ Visão geral do projeto
 - script create_superuser_django.py automátiza a criação do superuser do Django
 - [FAZER] nginx
 - Django API REST
+- autenticação JWT
+- Teste automátizados no Django
 
 ### iniciando projeto
 
@@ -22,44 +24,8 @@ $ sudo docker-compose down -v
 $ sudo docker-compose up --build
 ```
 
-Arruma erro de permissao nos arquivos
-```bash
-$ sudo chown -R $(whoami):$(whoami) .
-```
-
-entra no container do django
-```bash
-$ sudo docker-compose exec service_backend /bin/bash
-```
-
-cria as migrations
-```bash
-$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py makemigrations"
-```
-
-executando migrations
-```bash
-$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py migrate"
-```
-
-```bash
-$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py showmigrations"
-```
-
-se ainda nao criou as migrations do modulo clarke
-```bash
-sudo docker-compose exec service_backend /bin/bash 
-python manage.py makemigrations clarke
-python manage.py migrate clarke
-```
-
 criar um super usuário no django
 ```bash 
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py createsuperuser"
-```
-
-Inserindo dados fakes no banco de dados
-```bash 
-$ sudo docker-compose exec service_backend /bin/bash -c "python manage.py seed_data"
 ```
 
