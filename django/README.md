@@ -12,13 +12,6 @@ API REST Django
     - auth/login/
     - auth/register/
 
-
-
-Arruma erro de permissao em todos os arquivos do projeto
-```bash
-$ sudo chown -R $(whoami):$(whoami) .
-```
-
 entra no container do django
 ```bash
 $ sudo docker-compose exec service_backend /bin/bash

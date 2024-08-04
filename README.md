@@ -14,6 +14,11 @@ Visão geral do projeto
 
 ### iniciando projeto
 
+Arruma erro de permissao em todos os arquivos do projeto
+```bash
+$ sudo chown -R $(whoami):$(whoami) .
+```
+
 crie o arquivo '.env' na raiz do projeto com base no '.env.example'
 
 ```bash
