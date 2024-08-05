@@ -8,21 +8,30 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const removeUserAuthLocalStorage = useRemoveAuthLocalStorageHook();
     removeUserAuthLocalStorage();
+    // const authenticatedBool = useGetUserLoginHook(login, password);
+
+    const { authenticate } = useGetUserLoginHook();
+
     const handleAuth = async () => {
-        // if(!login || !password) {
-        //     setErrorMessage("Preencha todos os campos!");
-        //     return;
-        // }
-        // const authenticatedBool = await useGetUserLoginHook(login, password);
-        // const { data, error } = await useGetUserLoginHook(login, password);
-        // if(authenticatedBool === true) {
-        //     localStorage.setItem('auth', true)
-        //     window.location.href = '/';
-        // } else {
-        //     localStorage.setItem('auth', false)
-        //     setErrorMessage("Usuário ou senha incorretos!");
-        //     return;
-        // }
+        if(!login || !password) {
+            setErrorMessage("Preencha todos os campos!");
+            return;
+        }
+        try {
+            // Chame a função de autenticação fornecida pelo hook
+            // const authenticatedBool = await useGetUserLoginHook(login, password);
+            const authenticatedBool = await authenticate(login, password);
+
+            if (authenticatedBool === true) {
+                localStorage.setItem('auth', true);
+                window.location.href = '/';
+            } else {
+                localStorage.setItem('auth', false);
+                setErrorMessage("Usuário ou senha incorretos!");
+            }
+        } catch (error) {
+            setErrorMessage("Erro ao autenticar. Tente novamente.");
+        }
     }
 
     return (

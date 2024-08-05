@@ -49,6 +49,7 @@ criando novo módulo django
 $ sudo docker-compose exec service_backend /bin/bash -c "python manage.py startapp <user>"
 ```
 
+Django precisa configurar CORS para aceitar request do React.js
 
 
 

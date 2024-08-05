@@ -158,12 +158,14 @@ export const removeUserAuthLocalStorage = () => {
 export const userLogin = async (login, password) => {
     try {
         let authTokenUserLogged = '';
+        let authRefreshTokenUserLogged = '';
         const instanceAxios = getInstanceAxios();
-        const dataBody = { login, password };
-        const response = await instanceAxios.post(`/user/authenticate`, dataBody);
-        authTokenUserLogged = response.data.authenticationToken || '';
+        const dataBody = { username: login, password };
+        const response = await instanceAxios.post(`/auth/login`, dataBody);
+        authTokenUserLogged = response.data.access || '';
+        authRefreshTokenUserLogged = response.data.refresh || '';
         setAuthUserLogged(response.data);
-        if (!authTokenUserLogged || authTokenUserLogged == '') {
+        if (!authTokenUserLogged || authTokenUserLogged === '') {
             return false;
         }
         return true;

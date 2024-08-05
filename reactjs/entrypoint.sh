@@ -24,9 +24,9 @@ cp /reactjs/app/package*.json ./
 export PORT=${REACTJS_PORT}
 
 # Navega para o diretório do projeto
-cd "$REACT_APP_DIR" || exit 1
+# cd "$REACT_APP_DIR" || exit 1
 
-
+cd "/reactjs" || exit 1
 echo "Instalando as dependências do projeto React.js..."
 npm install || { echo "Falha ao instalar as dependências"; exit 1; }
 

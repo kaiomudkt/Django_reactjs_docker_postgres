@@ -42,18 +42,49 @@ INSTALLED_APPS = [
     'rest_framework',
     'user',
     'rest_framework_simplejwt.token_blacklist',
-    
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://127.0.0.1:8080",
+#     "http://172.16.20.5:8080", # IP do serviço docker-compose.yml do react.js
+#     # "http://127.0.0.1:{REACTJS_PORT}",
+#     # "https://dominio.com",
+# ]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
+# Se você precisar permitir todos os cabeçalhos:
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+]
+
+# Permitir todas as origens, CORS (Cross-Origin Resource Sharing)(para desenvolvimento)
+CORS_ALLOW_ALL_ORIGINS = True
+# Se você estiver enviando cookies ou credenciais
+CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'clarke.urls'
 
