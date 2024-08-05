@@ -1,0 +1,76 @@
+body {
+    background-color: #ececec;
+}
+
+.area-login {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    width: 500px;
+    height: 350px;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login span {
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(16, 94, 172);
+    margin-bottom: 30px;
+}
+
+.login .formulario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.login label {
+    font-size: 14px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.login input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    padding: 10px;
+    border: solid 2px #ececec;
+    margin-bottom: 10px;
+}
+
+.signin {
+    background-color: rgb(16, 94, 172);
+    height: 40px;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.signin:hover {
+    background-color: rgb(30, 110, 191);
+}
+
+.area-login button{
+    border: none;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}
