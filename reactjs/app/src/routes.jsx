@@ -1,22 +1,22 @@
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // import Content from "./pages/Content";
 import Login from "./page/Login";
 // import Profile from "./pages/Profile";
 // import Users from "./pages/Users";
 import Home from "./page/Home";
-import { useContext, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function RoutesApp() {
-    // const {auth, setAuth} = useContext(GlobalContext);
-    // const [localAuth, setLocalAuth] = useState(Boolean(localStorage.getItem('auth')));
-    // if(!localAuth) {
-    //     if(location.pathname != '/login' && location.pathname != '/accessLink'){
-    //         return <Navigate to="/login" />;
-    //     }
-    // }
+    const location = useLocation();
+    const [localAuth, setLocalAuth] = useState(localStorage.getItem('auth') === 'true');
+    useEffect(() => {
+        setLocalAuth(localStorage.getItem('auth') === 'true');
+    }, [localStorage.getItem('auth')]);
+    if(!localAuth && location.pathname != '/login') {
+        return <Navigate to="/login" replace />;
+    }
     
     return (
-        <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
                 {/* <Route path="/" element={<Content/>} /> */}
@@ -25,7 +25,6 @@ function RoutesApp() {
                 {/* <Route path="/users" element={<Users />} /> */}
                 {<Route path="*" element={<Home/>}></Route>}
             </Routes>
-        </BrowserRouter>
     );
 }
 

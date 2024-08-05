@@ -3,6 +3,7 @@
 import { useState } from "react";
 import RoutesApp from "./routes";
 import GlobalContext from "./Context";
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   const [auth, setAuth] = useState();
@@ -12,9 +13,11 @@ function App() {
   }
   return (
     <>
-      <GlobalContext.Provider value={{auth, setAuth}}>
-        <RoutesApp/>
-      </GlobalContext.Provider>
+      <BrowserRouter>
+        <GlobalContext.Provider value={{ auth, setAuth }}>
+          <RoutesApp />
+        </GlobalContext.Provider>
+      </BrowserRouter>
     </>
   );
 }

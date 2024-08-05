@@ -271,10 +271,10 @@ function Sidebar(props) {
                                             <NavIcon to='#'>
                                                 <AiIcons.AiOutlineArrowLeft onClick={showSidebar} style={Cursor} />
                                             </NavIcon>
-                                            <MeusDados>Links de Acesso</MeusDados>
+                                            <MeusDados>Teste 1</MeusDados>
                                         </>
                                     ) : (
-                                        <MeusDados style={Unlogged}>Links de Acesso</MeusDados>
+                                        <MeusDados style={Unlogged}>Teste 2</MeusDados>
                                     )}
                                     {itensMenu.map((item, index) => {
                                         return <SidebarMenu setMenuId={setMenuId} item={item} key={index} marginLeft={20} background={'#fff'} />;
