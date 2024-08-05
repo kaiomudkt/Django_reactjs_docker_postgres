@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Login from "./page/Login";
 // import Profile from "./pages/Profile";
 // import Users from "./pages/Users";
-// import Home from "./pages/Home";
+import Home from "./page/Home";
 import { useContext, useState } from 'react'
 
 function RoutesApp() {
@@ -23,7 +23,7 @@ function RoutesApp() {
                 {/* <Route path="/profile" element={<Profile />} /> */}
                 {/* <Route path="/home" element={<Home />} /> */}
                 {/* <Route path="/users" element={<Users />} /> */}
-                {/* <Route path="*" element={<Home/>}></Route> */}
+                {<Route path="*" element={<Home/>}></Route>}
             </Routes>
         </BrowserRouter>
     );

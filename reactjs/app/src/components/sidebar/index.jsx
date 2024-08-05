@@ -6,7 +6,6 @@ import * as AiIcons from "react-icons/ai";
 import { RiReplyAllFill } from "react-icons/ri";
 import SidebarMenu from "../sidebarMenu.js";
 import { IconContext } from "react-icons";
-import { useGetAllMenusHook } from "../../hook/dynamicMenuHook";
 import { useGetUserLoggedHook, useRemoveAuthLocalStorageHook } from '../../hook/user.hook.js';
 
 const Nav = styled.div`
@@ -215,18 +214,18 @@ function Sidebar(props) {
     }
 
     useEffect(() => {
-        async function fetchMenus() {
-            const menus = await useGetAllMenusHook();
-            setItensMenu(menus);
-        }
-        fetchMenus();
+        // async function fetchMenus() {
+        //     const menus = await useGetAllMenusHook();
+        //     setItensMenu(menus);
+        // }
+        // fetchMenus();
 
-        function fetchMostramenuprincipal () {
-            if(location.pathname == '/accessLink') {
-                setSidebarPrincipal(false);
-            }
-        }
-        fetchMostramenuprincipal();
+        // function fetchMostramenuprincipal () {
+        //     if(location.pathname == '/accessLink') {
+        //         setSidebarPrincipal(false);
+        //     }
+        // }
+        // fetchMostramenuprincipal();
     }, []);
 
     return (
@@ -238,8 +237,7 @@ function Sidebar(props) {
                             <LogoName to='/'>Clarke</LogoName>
                         </NavIcon>
                         <Info>
-                            {authenticate && (<Link style={PainelAdmin} to='/admin/accessLink'>Admin:Links</Link>)}
-                            {authenticate && (<Link style={PainelAdmin} to='/admin/dynamicMenu'>Admin:Menus</Link>)}
+                            {authenticate && (<Link style={PainelAdmin} to='/admin/user'>Usuários</Link>)}
                             {authenticate && (<Link style={Profile} to='/profile'>{showUserName ? userLogged.userName:'b'}</Link>)}
                             {
                                 authenticate ?
@@ -258,8 +256,8 @@ function Sidebar(props) {
                                     </NavIcon>
                                     <MeusDados>Meus Dados</MeusDados>
                                     <ItemSidebarPrincipal to='/home'><AiIcons.AiFillHome style={IconNavPrincipal} />Home</ItemSidebarPrincipal>
-                                    {authenticate && (<ItemSidebarPrincipal to='/users'><AiIcons.AiOutlineUser style={IconNavPrincipal} />Usuários</ItemSidebarPrincipal>)}
-                                    <ItemSidebarPrincipal onClick={showSidebar} to='/accessLink'><RiReplyAllFill style={IconNavPrincipal} />Links de Acesso</ItemSidebarPrincipal>
+                                    {authenticate && (<ItemSidebarPrincipal to='/supplier'><AiIcons.AiOutlineUser style={IconNavPrincipal} />Fornecedores</ItemSidebarPrincipal>)}
+                                    <ItemSidebarPrincipal onClick={showSidebar} to='/client'><RiReplyAllFill style={IconNavPrincipal} />Clientes</ItemSidebarPrincipal>
                                 </SideBarNavItensPrincipal>
                             </SideBarPrincipal>
                         )
