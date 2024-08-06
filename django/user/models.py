@@ -24,11 +24,15 @@ class CustomUser(AbstractUser):
         blank=True
     )
     
-    def is_client(self):
-        return self.groups.filter(name='Client').exists()
-
     def is_supplier(self):
-        return self.groups.filter(name='Supplier').exists()
+        # Verificar se o usuário pertence ao grupo 'Supplier'
+        teste = self.groups.filter(name='Supplier').exists()
+        print(teste)
+        return teste
+
+    def is_client(self):
+        # Verificar se o usuário pertence ao grupo 'Client'
+        return self.groups.filter(name='Client').exists()
 
     def is_admin(self):
         return self.is_superuser

@@ -1,6 +1,7 @@
 from .models import Client, Contract, Supplier
 from .serializers import ClientSerializer, ContractSerializer, SupplierSerializer, ListContractClientsSerializer, ListContractSupplierSerializer
 from rest_framework import viewsets, generics, permissions
+from rest_framework.exceptions import PermissionDenied
 
 class IsClientOrAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -15,9 +16,16 @@ class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     permission_classes = [IsClientOrAdmin]
     def get_queryset(self):
-        if self.request.user.is_client:
-            return Client.objects.filter(pk=self.request.user.pk)
-        return Client.objects.all()
+        user = self.request.user
+        # Verifique se o usuário é um superusuário
+        if user.is_superuser:
+            return Supplier.objects.all()
+        # Verifique se o usuário é um cliente
+        if user.is_client():
+            # Filtra apenas o cliente correspondente
+            return Supplier.objects.filter(pk=user.pk)
+        # Se não for superusuário nem cliente, levanta um erro de permissão
+        raise PermissionDenied('Você não tem permissão para acessar esses dados.')
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
@@ -32,9 +40,17 @@ class SupplierViewSet(viewsets.ModelViewSet):
     serializer_class = SupplierSerializer
     permission_classes = [IsSupplierOrAdmin]
     def get_queryset(self):
-        if self.request.user.is_supplier:
-            return Supplier.objects.filter(pk=self.request.user.pk)
-        return Supplier.objects.all()
+        user = self.request.user
+        print(user.pk)
+        # Verifique se o usuário é um superusuário
+        if user.is_superuser:
+            return Supplier.objects.all()
+        # Verifique se o usuário é um fornecedor
+        if user.is_supplier():
+            # Filtra os fornecedores pelos quais o usuário é responsável
+            return Supplier.objects.filter(responsiblecompany__user=user)
+        # Se não for superusuário nem fornecedor, levanta um erro de permissão
+        raise PermissionDenied('Você não tem permissão para acessar esses dados.')
 
 class ListContractClient(generics.ListAPIView):
     """

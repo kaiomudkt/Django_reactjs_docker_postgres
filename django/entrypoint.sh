@@ -28,10 +28,11 @@ python manage.py migrate
 if [ "$TYPE_ENVIRONMENT" = "development" ]; then
   echo "Gerando Seed superuser"
   python manage.py create_superuser_django
-  echo "Gerando Seed Supplier, Client e Contract"
-  python manage.py seed_data
   echo "Gerando Seed CustomUser"
   python manage.py user_seed
+  echo "Gerando Seed Supplier, Client e Contract"
+  python manage.py seed_data
+  python manage.py create_responsibleCompany
 fi
 
 # executa o "command" do service do docker-compose.yml que inicia o servidor Django

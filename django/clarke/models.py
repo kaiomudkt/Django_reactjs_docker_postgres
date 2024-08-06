@@ -2,6 +2,9 @@ import uuid
 from django.db import models
 from datetime import date
 from django.db.models import QuerySet
+from django.conf import settings
+from user.models import CustomUser
+
 
 class Supplier(models.Model):
     """
@@ -151,3 +154,17 @@ class Contract(models.Model):
             bool: True se o contrato estiver expirado, False caso contrário.
         """
         return date.today() > self.expiration_date
+
+class ResponsibleCompany(models.Model):
+    """
+    Modelo que representa a relação muitos-para-muitos entre usuários e fornecedores.
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'supplier')
+
+    def __str__(self):
+        return f"{self.user.username} is responsible for {self.supplier.name}"
