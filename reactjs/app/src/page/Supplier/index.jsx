@@ -4,10 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import { format } from 'date-fns';
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useGetAllSuppliersHook } from "../../hook/supplier.hook";
-// import ModalCreateCardLinks from "../../components/ModalCreateCardLinks/index";
-// import FormsCreateCardLinks from '../../components/FormsCreateCardLinks';
-// import FormsUpdateLink from '../../components/FormsUpdateLink';
-// import FormsDeleteLink from "../../components/FormsDeleteLink";
+import ModalCreateSupplier from "../../components/ModalCreateSupplier/index";
+import FormsCreateSupplier from '../../components/FormsCreateSupplier';
+// import FormsUpdateSupplier from '../../components/FormsUpdateSupplier';
+// import FormsDeleteSupplier from "../../components/FormsDeleteSupplier";
 import ModalWithContent from "../../components/ModalWithContent";
 
 export default function AdminSupplier() {
@@ -26,7 +26,6 @@ export default function AdminSupplier() {
         try {
             async function fetchSupplier() {
                 const suppliersApi = await getAllSuppliersApi({page: 1, limit: 1000})
-                console.log(suppliersApi)
                 setSuppliers(suppliersApi);
             }
             fetchSupplier();
@@ -60,15 +59,14 @@ export default function AdminSupplier() {
             <div className="container-adminLink">
                 <h2>Painel administrador de Fornecedores</h2>
                 <button onClick={showModalCreateLink} >Novo fornecedor</button>
-                {/* <ModalCreateCardLinks isOpen={openModalCreateLink} closeModal={showModalCreateLink} content={<FormsCreateCardLinks />}> */}
-                {/* </ModalCreateCardLinks> */}
+                <ModalCreateSupplier isOpen={openModalCreateLink} closeModal={showModalCreateLink} content={<FormsCreateSupplier />}> 
+                </ModalCreateSupplier>
                 <table>
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Estado</th>
                             <th>CNPJ</th>
-                            <th>Menu</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
