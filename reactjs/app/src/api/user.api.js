@@ -118,8 +118,9 @@ export const getAuthTokenUserLogged = () => {
     try {
         let jwtUser = '';
         const authUserLogged = getAuthUserLogged();
-        if (authUserLogged && authUserLogged.authenticationToken) {
-            jwtUser = authUserLogged.authenticationToken;
+        // if (authUserLogged && authUserLogged.authenticationToken) {
+        if (authUserLogged && authUserLogged.access) {
+            jwtUser = authUserLogged.access;
         }
         return jwtUser;
     } catch (error) {
