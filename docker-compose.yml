@@ -45,7 +45,7 @@ services:
       context: ./reactjs
       dockerfile: Dockerfile
       args:
-        REACTJS_APP_API_URL: ${REACTJS_APP_API_URL}
+        REACTJS_APP_API_URL: http://service_backend:3001/
         REACTJS_PORT: ${REACTJS_PORT}
     command: npm start
     entrypoint: /entrypoint.sh
