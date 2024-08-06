@@ -19,7 +19,7 @@ export async function createSupplier(formData) {
     }
 }
 
-export async function getAllSupplier(data) {
+export async function getAllSuppliers(data) {
     try {
         const instanceAxios = await getInstanceAxios();
         const dataBody = {

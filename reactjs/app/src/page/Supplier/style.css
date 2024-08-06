@@ -1,0 +1,64 @@
+.container-adminLink {
+    padding: 50px;
+    width: calc(100% - 250px);
+    position: absolute;
+    right: 0;
+}
+
+.container-adminLink h2 {
+    color: rgb(16, 94, 172);
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.container-adminLink button {
+    height: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(16, 94, 172);
+    color: #fff;
+    width: 150px;
+    margin-bottom: 30px;
+}
+
+.container-adminLink button:hover {
+    background-color: rgb(30, 110, 191);
+    cursor: pointer;
+}
+
+.container-adminLink table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.container-adminLink thead {
+    height: 55px;
+    font-size: 16px;
+    color: rgb(16, 94, 172);
+    font-weight: 700;
+}
+
+.container-adminLink tbody {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    text-align: center;
+}
+
+.container-adminLink th {
+    width: 16.66%;
+}
+
+.container-adminLink tbody tr {
+    height: 74px;
+}
+
+.container-adminLink tbody tr:hover>td {
+    background-color: rgb(213, 213, 213);
+}
+
+.container-adminLink tbody tr:nth-child(odd) {
+    background-color: #dfdfdf;
+}

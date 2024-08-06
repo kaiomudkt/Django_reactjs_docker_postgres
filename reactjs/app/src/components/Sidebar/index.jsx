@@ -209,7 +209,7 @@ function Sidebar(props) {
     const Signout = () => {
         const removeUserAuthLocalStorage = useRemoveAuthLocalStorageHook();
         removeUserAuthLocalStorage();
-        // navigate('/accessLink');
+        // navigate('/home');
         window.location.reload();
     }
 
@@ -257,7 +257,6 @@ function Sidebar(props) {
                                     <MeusDados>Meus Dados</MeusDados>
                                     <ItemSidebarPrincipal to='/home'><AiIcons.AiFillHome style={IconNavPrincipal} />Home</ItemSidebarPrincipal>
                                     {authenticate && (<ItemSidebarPrincipal to='/supplier'><AiIcons.AiOutlineUser style={IconNavPrincipal} />Fornecedores</ItemSidebarPrincipal>)}
-                                    <ItemSidebarPrincipal onClick={showSidebar} to='/client'><RiReplyAllFill style={IconNavPrincipal} />Clientes</ItemSidebarPrincipal>
                                 </SideBarNavItensPrincipal>
                             </SideBarPrincipal>
                         )

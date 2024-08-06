@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/Sidebar";
 import styled from "styled-components";
 
 const Info = styled.div`

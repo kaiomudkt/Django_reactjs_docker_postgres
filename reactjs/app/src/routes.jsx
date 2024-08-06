@@ -5,6 +5,7 @@ import Login from "./page/Login";
 // import Users from "./pages/Users";
 import Home from "./page/Home";
 import { useState, useEffect } from 'react'
+import Supplier from "./page/Supplier";
 
 function RoutesApp() {
     const location = useLocation();
@@ -12,13 +13,14 @@ function RoutesApp() {
     useEffect(() => {
         setLocalAuth(localStorage.getItem('auth') === 'true');
     }, [localStorage.getItem('auth')]);
-    if(!localAuth && location.pathname != '/login') {
+        if(!localAuth && location.pathname != '/login') {
         return <Navigate to="/login" replace />;
     }
     
     return (
             <Routes>
                 <Route path="/login" element={<Login />} />
+                <Route path="/supplier" element={<Supplier />} />
                 {/* <Route path="/" element={<Content/>} /> */}
                 {/* <Route path="/profile" element={<Profile />} /> */}
                 {/* <Route path="/home" element={<Home />} /> */}
